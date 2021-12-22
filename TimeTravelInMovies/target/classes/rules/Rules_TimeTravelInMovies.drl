@@ -1,0 +1,569 @@
+package com.sample
+import javax.swing.JOptionPane
+import javax.swing.JFrame
+import org.kie.api.runtime.KieRuntime
+import javax.swing.JRadioButton
+import javax.swing.JPanel
+global JFrame frame
+global javax.swing.JTextArea textArea
+import java.util.ArrayList
+import java.util.List
+import java.util.Arrays;
+import java.util.ArrayList
+import javax.swing.JLabel;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import com.sample.Pytanie;
+
+
+rule "START"
+    when
+    then
+    JOptionPane.showMessageDialog(null, "Odpowiedz na pytania, a program odgadnie o jakim filmie o podró¿ach w czasie myœlisz!", "Time Travel In Movies", JOptionPane.PLAIN_MESSAGE);
+end
+
+rule "Czy w filmie naprawdê mo¿liwa jest podró¿ w czasie?"
+    when
+    then
+    ArrayList<String> opcje = new ArrayList<>();
+    opcje.add("Nie");
+    opcje.add("Tak");
+    Pytanie odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy w filmie naprawdê mo¿liwa jest podró¿ w czasie?", opcje);
+    insert (odpowiedz);
+end
+
+rule "Czy w filmie naprawdê mo¿liwa jest podró¿ w czasie? - Nie - 'Ivan Vasilievich Changes Profession'"
+    when
+    Pytanie(pytanie == "Czy w filmie naprawdê mo¿liwa jest podró¿ w czasie?" && odpowiedz == "Nie")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Ivan Vasilievich Changes Profession'");
+end
+
+
+rule "Czy w filmie naprawdê mo¿liwa jest podró¿ w czasie? - Nie - 'Life on Mars'"
+    when
+    Pytanie(pytanie == "Czy w filmie naprawdê mo¿liwa jest podró¿ w czasie?" && odpowiedz == "Nie")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Life on Mars'");
+end
+
+
+rule "Czy w filmie naprawdê mo¿liwa jest podró¿ w czasie? - Nie - 'Source Code'"
+    when
+    Pytanie(pytanie == "Czy w filmie naprawdê mo¿liwa jest podró¿ w czasie?" && odpowiedz == "Nie")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Source Code'");
+end
+
+
+rule "Czy w filmie naprawdê mo¿liwa jest podró¿ w czasie? - Tak - Czy w filmie tylko informacje mog¹ podró¿owaæ w czasie?"
+    when
+    Pytanie(pytanie == "Czy w filmie naprawdê mo¿liwa jest podró¿ w czasie?" && odpowiedz == "Tak")
+    then
+    ArrayList<String> opcje = new ArrayList<>();
+    opcje.add("Nie");
+    opcje.add("Tak");
+    Pytanie odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy w filmie tylko informacje mog¹ podró¿owaæ w czasie?", opcje);
+    insert (odpowiedz);
+end
+
+rule "Czy w filmie tylko informacje mog¹ podró¿owaæ w czasie? - Nie - Czy akcja filmu rozgrywa siê na jednej osi czasu?"
+    when
+    Pytanie(pytanie == "Czy w filmie tylko informacje mog¹ podró¿owaæ w czasie?" && odpowiedz == "Nie")
+    then
+    ArrayList<String> opcje = new ArrayList<>();
+    opcje.add("Nie");
+    opcje.add("Tak");
+    Pytanie odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy akcja filmu rozgrywa siê na jednej osi czasu?", opcje);
+    insert (odpowiedz);
+end
+
+rule "Czy akcja filmu rozgrywa siê na jednej osi czasu? - Nie - Czy w filmie istnieje multiwersum?"
+    when
+    Pytanie(pytanie == "Czy akcja filmu rozgrywa siê na jednej osi czasu?" && odpowiedz == "Nie")
+    then
+    ArrayList<String> opcje = new ArrayList<>();
+    opcje.add("Nie");
+    opcje.add("Tak");
+    Pytanie odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy w filmie istnieje multiwersum?", opcje);
+    insert (odpowiedz);
+end
+
+rule "Czy w filmie istnieje multiwersum? - Nie - Czy w filmie istniej¹ dwie osie czasu i styczne uniwersum?"
+    when
+    Pytanie(pytanie == "Czy w filmie istnieje multiwersum?" && odpowiedz == "Nie")
+    then
+    ArrayList<String> opcje = new ArrayList<>();
+    opcje.add("Tak");
+    opcje.add("Nie");
+    Pytanie odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy w filmie istniej¹ dwie osie czasu i styczne uniwersum?", opcje);
+    insert (odpowiedz);
+end
+
+rule "Czy w filmie istniej¹ dwie osie czasu i styczne uniwersum? - Tak - 'Donnie Darko'"
+    when
+    Pytanie(pytanie == "Czy w filmie istniej¹ dwie osie czasu i styczne uniwersum?" && odpowiedz == "Tak")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Donnie Darko'");
+end
+
+
+rule "Czy w filmie istniej¹ dwie osie czasu i styczne uniwersum? - Nie - Nie ma takiego filmu..."
+    when
+    Pytanie(pytanie == "Czy w filmie istniej¹ dwie osie czasu i styczne uniwersum?" && odpowiedz == "Nie")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "Nie ma takiego filmu...");
+end
+
+
+rule "Czy w filmie istnieje multiwersum? - Tak - Czy w filmie ciê¿ko jest zmieniæ historiê?"
+    when
+    Pytanie(pytanie == "Czy w filmie istnieje multiwersum?" && odpowiedz == "Tak")
+    then
+    ArrayList<String> opcje = new ArrayList<>();
+    opcje.add("Nie");
+    opcje.add("Tak");
+    Pytanie odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy w filmie ciê¿ko jest zmieniæ historiê?", opcje);
+    insert (odpowiedz);
+end
+
+rule "Czy w filmie ciê¿ko jest zmieniæ historiê? - Nie - Czy film nawi¹zuje do wstecznej linii œwiata?"
+    when
+    Pytanie(pytanie == "Czy w filmie ciê¿ko jest zmieniæ historiê?" && odpowiedz == "Nie")
+    then
+    ArrayList<String> opcje = new ArrayList<>();
+    opcje.add("Nie");
+    opcje.add("Tak");
+    Pytanie odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy film nawi¹zuje do wstecznej linii œwiata?", opcje);
+    insert (odpowiedz);
+end
+
+rule "Czy film nawi¹zuje do wstecznej linii œwiata? - Nie - Czy w filmie osoby, które nie podró¿uj¹ w czasie, pamiêtaj¹ inne linie czasu?"
+    when
+    Pytanie(pytanie == "Czy film nawi¹zuje do wstecznej linii œwiata?" && odpowiedz == "Nie")
+    then
+    ArrayList<String> opcje = new ArrayList<>();
+    opcje.add("Nie");
+    opcje.add("Tak");
+    Pytanie odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy w filmie osoby, które nie podró¿uj¹ w czasie, pamiêtaj¹ inne linie czasu?", opcje);
+    insert (odpowiedz);
+end
+
+rule "Czy w filmie osoby, które nie podró¿uj¹ w czasie, pamiêtaj¹ inne linie czasu? - Nie - Czy w filmie dochodzi do powstania pêtli przyczynowych?"
+    when
+    Pytanie(pytanie == "Czy w filmie osoby, które nie podró¿uj¹ w czasie, pamiêtaj¹ inne linie czasu?" && odpowiedz == "Nie")
+    then
+    ArrayList<String> opcje = new ArrayList<>();
+    opcje.add("Nie");
+    opcje.add("Tak");
+    Pytanie odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy w filmie dochodzi do powstania pêtli przyczynowych?", opcje);
+    insert (odpowiedz);
+end
+
+rule "Czy w filmie dochodzi do powstania pêtli przyczynowych? - Nie - 'Blackadder Back & Forth'"
+    when
+    Pytanie(pytanie == "Czy w filmie dochodzi do powstania pêtli przyczynowych?" && odpowiedz == "Nie")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Blackadder Back & Forth'");
+end
+
+
+rule "Czy w filmie dochodzi do powstania pêtli przyczynowych? - Nie - 'Planet of the Apes (2001)'"
+    when
+    Pytanie(pytanie == "Czy w filmie dochodzi do powstania pêtli przyczynowych?" && odpowiedz == "Nie")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Planet of the Apes (2001)'");
+end
+
+
+rule "Czy w filmie dochodzi do powstania pêtli przyczynowych? - Nie - 'Deja Vu'"
+    when
+    Pytanie(pytanie == "Czy w filmie dochodzi do powstania pêtli przyczynowych?" && odpowiedz == "Nie")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Deja Vu'");
+end
+
+
+rule "Czy w filmie dochodzi do powstania pêtli przyczynowych? - Tak - 'Terminator 2: Judgment Day'"
+    when
+    Pytanie(pytanie == "Czy w filmie dochodzi do powstania pêtli przyczynowych?" && odpowiedz == "Tak")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Terminator 2: Judgment Day'");
+end
+
+
+rule "Czy w filmie osoby, które nie podró¿uj¹ w czasie, pamiêtaj¹ inne linie czasu? - Tak - 'Men in Black 3'"
+    when
+    Pytanie(pytanie == "Czy w filmie osoby, które nie podró¿uj¹ w czasie, pamiêtaj¹ inne linie czasu?" && odpowiedz == "Tak")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Men in Black 3'");
+end
+
+
+rule "Czy w filmie osoby, które nie podró¿uj¹ w czasie, pamiêtaj¹ inne linie czasu? - Tak - 'The Jacket'"
+    when
+    Pytanie(pytanie == "Czy w filmie osoby, które nie podró¿uj¹ w czasie, pamiêtaj¹ inne linie czasu?" && odpowiedz == "Tak")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'The Jacket'");
+end
+
+
+rule "Czy film nawi¹zuje do wstecznej linii œwiata? - Tak - 'Primer'"
+    when
+    Pytanie(pytanie == "Czy film nawi¹zuje do wstecznej linii œwiata?" && odpowiedz == "Tak")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Primer'");
+end
+
+
+rule "Czy w filmie ciê¿ko jest zmieniæ historiê? - Tak - 'Happy Accidents'"
+    when
+    Pytanie(pytanie == "Czy w filmie ciê¿ko jest zmieniæ historiê?" && odpowiedz == "Tak")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Happy Accidents'");
+end
+
+
+rule "Czy w filmie ciê¿ko jest zmieniæ historiê? - Tak - 'The Time Machine (2002)'"
+    when
+    Pytanie(pytanie == "Czy w filmie ciê¿ko jest zmieniæ historiê?" && odpowiedz == "Tak")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'The Time Machine (2002)'");
+end
+
+
+rule "Czy w filmie ciê¿ko jest zmieniæ historiê? - Tak - 'Terminator 3: Rise of the Machines'"
+    when
+    Pytanie(pytanie == "Czy w filmie ciê¿ko jest zmieniæ historiê?" && odpowiedz == "Tak")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Terminator 3: Rise of the Machines'");
+end
+
+
+rule "Czy akcja filmu rozgrywa siê na jednej osi czasu? - Tak - Czy film jest o podró¿y do przesz³oœci?"
+    when
+    Pytanie(pytanie == "Czy akcja filmu rozgrywa siê na jednej osi czasu?" && odpowiedz == "Tak")
+    then
+    ArrayList<String> opcje = new ArrayList<>();
+    opcje.add("Nie");
+    opcje.add("Tak");
+    Pytanie odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy film jest o podró¿y do przesz³oœci?", opcje);
+    insert (odpowiedz);
+end
+
+rule "Czy film jest o podró¿y do przesz³oœci? - Nie - 'Planet of the Apes (1968)'"
+    when
+    Pytanie(pytanie == "Czy film jest o podró¿y do przesz³oœci?" && odpowiedz == "Nie")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Planet of the Apes (1968)'");
+end
+
+
+rule "Czy film jest o podró¿y do przesz³oœci? - Tak - Czy w filmie powstaj¹ pêtle przyczynowe?"
+    when
+    Pytanie(pytanie == "Czy film jest o podró¿y do przesz³oœci?" && odpowiedz == "Tak")
+    then
+    ArrayList<String> opcje = new ArrayList<>();
+    opcje.add("Nie");
+    opcje.add("Tak");
+    Pytanie odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy w filmie powstaj¹ pêtle przyczynowe?", opcje);
+    insert (odpowiedz);
+end
+
+rule "Czy w filmie powstaj¹ pêtle przyczynowe? - Nie - 'Army of Darkness'"
+    when
+    Pytanie(pytanie == "Czy w filmie powstaj¹ pêtle przyczynowe?" && odpowiedz == "Nie")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Army of Darkness'");
+end
+
+
+rule "Czy w filmie powstaj¹ pêtle przyczynowe? - Nie - 'Midnight in Paris'"
+    when
+    Pytanie(pytanie == "Czy w filmie powstaj¹ pêtle przyczynowe?" && odpowiedz == "Nie")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Midnight in Paris'");
+end
+
+
+rule "Czy w filmie powstaj¹ pêtle przyczynowe? - Tak - Czy w filmie niemo¿liwe jest powstanie paradoksu czasowego (zasada samospójnoœci Novikov'a)? "
+    when
+    Pytanie(pytanie == "Czy w filmie powstaj¹ pêtle przyczynowe?" && odpowiedz == "Tak")
+    then
+    ArrayList<String> opcje = new ArrayList<>();
+    opcje.add("Nie");
+    opcje.add("Tak");
+    Pytanie odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy w filmie niemo¿liwe jest powstanie paradoksu czasowego (zasada samospójnoœci Novikov'a)? ", opcje);
+    insert (odpowiedz);
+end
+
+rule "Czy w filmie niemo¿liwe jest powstanie paradoksu czasowego (zasada samospójnoœci Novikov'a)?  - Nie - Czy w filmie podró¿uje siê w czasie za pomoc¹ pojazdu, który zu¿ywa 1,21 gigawata przy 88 milach na godzinê?"
+    when
+    Pytanie(pytanie == "Czy w filmie niemo¿liwe jest powstanie paradoksu czasowego (zasada samospójnoœci Novikov'a)? " && odpowiedz == "Nie")
+    then
+    ArrayList<String> opcje = new ArrayList<>();
+    opcje.add("Tak");
+    opcje.add("Nie");
+    Pytanie odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy w filmie podró¿uje siê w czasie za pomoc¹ pojazdu, który zu¿ywa 1,21 gigawata przy 88 milach na godzinê?", opcje);
+    insert (odpowiedz);
+end
+
+rule "Czy w filmie podró¿uje siê w czasie za pomoc¹ pojazdu, który zu¿ywa 1,21 gigawata przy 88 milach na godzinê? - Tak - 'Back to the Future'"
+    when
+    Pytanie(pytanie == "Czy w filmie podró¿uje siê w czasie za pomoc¹ pojazdu, który zu¿ywa 1,21 gigawata przy 88 milach na godzinê?" && odpowiedz == "Tak")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Back to the Future'");
+end
+
+
+rule "Czy w filmie podró¿uje siê w czasie za pomoc¹ pojazdu, który zu¿ywa 1,21 gigawata przy 88 milach na godzinê? - Tak - 'Back to the Future Part II'"
+    when
+    Pytanie(pytanie == "Czy w filmie podró¿uje siê w czasie za pomoc¹ pojazdu, który zu¿ywa 1,21 gigawata przy 88 milach na godzinê?" && odpowiedz == "Tak")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Back to the Future Part II'");
+end
+
+
+rule "Czy w filmie podró¿uje siê w czasie za pomoc¹ pojazdu, który zu¿ywa 1,21 gigawata przy 88 milach na godzinê? - Tak - 'Back to the Future Part III'"
+    when
+    Pytanie(pytanie == "Czy w filmie podró¿uje siê w czasie za pomoc¹ pojazdu, który zu¿ywa 1,21 gigawata przy 88 milach na godzinê?" && odpowiedz == "Tak")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Back to the Future Part III'");
+end
+
+
+rule "Czy w filmie podró¿uje siê w czasie za pomoc¹ pojazdu, który zu¿ywa 1,21 gigawata przy 88 milach na godzinê? - Nie - 'A Sound of Thunder'"
+    when
+    Pytanie(pytanie == "Czy w filmie podró¿uje siê w czasie za pomoc¹ pojazdu, który zu¿ywa 1,21 gigawata przy 88 milach na godzinê?" && odpowiedz == "Nie")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'A Sound of Thunder'");
+end
+
+
+rule "Czy w filmie podró¿uje siê w czasie za pomoc¹ pojazdu, który zu¿ywa 1,21 gigawata przy 88 milach na godzinê? - Nie - 'Looper'"
+    when
+    Pytanie(pytanie == "Czy w filmie podró¿uje siê w czasie za pomoc¹ pojazdu, który zu¿ywa 1,21 gigawata przy 88 milach na godzinê?" && odpowiedz == "Nie")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Looper'");
+end
+
+
+rule "Czy w filmie niemo¿liwe jest powstanie paradoksu czasowego (zasada samospójnoœci Novikov'a)?  - Tak - Czy w filmie dochodzi do interakcji z samym sob¹?"
+    when
+    Pytanie(pytanie == "Czy w filmie niemo¿liwe jest powstanie paradoksu czasowego (zasada samospójnoœci Novikov'a)? " && odpowiedz == "Tak")
+    then
+    ArrayList<String> opcje = new ArrayList<>();
+    opcje.add("Nie");
+    opcje.add("Tak");
+    Pytanie odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy w filmie dochodzi do interakcji z samym sob¹?", opcje);
+    insert (odpowiedz);
+end
+
+rule "Czy w filmie dochodzi do interakcji z samym sob¹? - Nie - 'The Terminator'"
+    when
+    Pytanie(pytanie == "Czy w filmie dochodzi do interakcji z samym sob¹?" && odpowiedz == "Nie")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'The Terminator'");
+end
+
+
+rule "Czy w filmie dochodzi do interakcji z samym sob¹? - Nie - 'Premonition'"
+    when
+    Pytanie(pytanie == "Czy w filmie dochodzi do interakcji z samym sob¹?" && odpowiedz == "Nie")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Premonition'");
+end
+
+
+rule "Czy w filmie dochodzi do interakcji z samym sob¹? - Nie - 'The Time Traveler's Wife'"
+    when
+    Pytanie(pytanie == "Czy w filmie dochodzi do interakcji z samym sob¹?" && odpowiedz == "Nie")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'The Time Traveler's Wife'");
+end
+
+
+rule "Czy w filmie dochodzi do interakcji z samym sob¹? - Tak - 'Twelve Monkeys'"
+    when
+    Pytanie(pytanie == "Czy w filmie dochodzi do interakcji z samym sob¹?" && odpowiedz == "Tak")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Twelve Monkeys'");
+end
+
+
+rule "Czy w filmie dochodzi do interakcji z samym sob¹? - Tak - 'Harry Potter and the Prisoner of Azkaban'"
+    when
+    Pytanie(pytanie == "Czy w filmie dochodzi do interakcji z samym sob¹?" && odpowiedz == "Tak")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Harry Potter and the Prisoner of Azkaban'");
+end
+
+
+rule "Czy w filmie tylko informacje mog¹ podró¿owaæ w czasie? - Tak - Czy film jest o wizji przysz³oœci?"
+    when
+    Pytanie(pytanie == "Czy w filmie tylko informacje mog¹ podró¿owaæ w czasie?" && odpowiedz == "Tak")
+    then
+    ArrayList<String> opcje = new ArrayList<>();
+    opcje.add("Nie");
+    opcje.add("Tak");
+    Pytanie odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy film jest o wizji przysz³oœci?", opcje);
+    insert (odpowiedz);
+end
+
+rule "Czy film jest o wizji przysz³oœci? - Nie - Czy w filmie œwiadomoœæ podró¿uje w czasie do tego samego cia³a?"
+    when
+    Pytanie(pytanie == "Czy film jest o wizji przysz³oœci?" && odpowiedz == "Nie")
+    then
+    ArrayList<String> opcje = new ArrayList<>();
+    opcje.add("Nie");
+    opcje.add("Tak");
+    Pytanie odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy w filmie œwiadomoœæ podró¿uje w czasie do tego samego cia³a?", opcje);
+    insert (odpowiedz);
+end
+
+rule "Czy w filmie œwiadomoœæ podró¿uje w czasie do tego samego cia³a? - Nie - Nie ma takiego filmu..."
+    when
+    Pytanie(pytanie == "Czy w filmie œwiadomoœæ podró¿uje w czasie do tego samego cia³a?" && odpowiedz == "Nie")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "Nie ma takiego filmu...");
+end
+
+
+rule "Czy w filmie œwiadomoœæ podró¿uje w czasie do tego samego cia³a? - Tak - Czy w filmie powtarza siê ci¹gle jeden dzieñ?"
+    when
+    Pytanie(pytanie == "Czy w filmie œwiadomoœæ podró¿uje w czasie do tego samego cia³a?" && odpowiedz == "Tak")
+    then
+    ArrayList<String> opcje = new ArrayList<>();
+    opcje.add("Nie");
+    opcje.add("Tak");
+    Pytanie odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy w filmie powtarza siê ci¹gle jeden dzieñ?", opcje);
+    insert (odpowiedz);
+end
+
+rule "Czy w filmie powtarza siê ci¹gle jeden dzieñ? - Nie - Czy w filmie jest przejœcie do teraŸniejszoœci?"
+    when
+    Pytanie(pytanie == "Czy w filmie powtarza siê ci¹gle jeden dzieñ?" && odpowiedz == "Nie")
+    then
+    ArrayList<String> opcje = new ArrayList<>();
+    opcje.add("Nie");
+    opcje.add("Tak");
+    Pytanie odpowiedz = zapytaj(frame, kcontext.getKieRuntime(), "Czy w filmie jest przejœcie do teraŸniejszoœci?", opcje);
+    insert (odpowiedz);
+end
+
+rule "Czy w filmie jest przejœcie do teraŸniejszoœci? - Nie - 'Retroactive'"
+    when
+    Pytanie(pytanie == "Czy w filmie jest przejœcie do teraŸniejszoœci?" && odpowiedz == "Nie")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Retroactive'");
+end
+
+
+rule "Czy w filmie jest przejœcie do teraŸniejszoœci? - Tak - 'The Butterfly Effect'"
+    when
+    Pytanie(pytanie == "Czy w filmie jest przejœcie do teraŸniejszoœci?" && odpowiedz == "Tak")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'The Butterfly Effect'");
+end
+
+
+rule "Czy w filmie powtarza siê ci¹gle jeden dzieñ? - Tak - 'Groundhog Day'"
+    when
+    Pytanie(pytanie == "Czy w filmie powtarza siê ci¹gle jeden dzieñ?" && odpowiedz == "Tak")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Groundhog Day'");
+end
+
+
+rule "Czy w filmie powtarza siê ci¹gle jeden dzieñ? - Tak - 'Day Break'"
+    when
+    Pytanie(pytanie == "Czy w filmie powtarza siê ci¹gle jeden dzieñ?" && odpowiedz == "Tak")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Day Break'");
+end
+
+
+rule "Czy film jest o wizji przysz³oœci? - Tak - 'Paycheck'"
+    when
+    Pytanie(pytanie == "Czy film jest o wizji przysz³oœci?" && odpowiedz == "Tak")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Paycheck'");
+end
+
+
+rule "Czy film jest o wizji przysz³oœci? - Tak - 'Next'"
+    when
+    Pytanie(pytanie == "Czy film jest o wizji przysz³oœci?" && odpowiedz == "Tak")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'Next'");
+end
+
+
+rule "Czy film jest o wizji przysz³oœci? - Tak - 'FlashForward'"
+    when
+    Pytanie(pytanie == "Czy film jest o wizji przysz³oœci?" && odpowiedz == "Tak")
+    then
+    znaleziony_film(frame, kcontext.getKieRuntime(), "'FlashForward'");
+end
+
+
+function void znaleziony_film(JFrame frame, KieRuntime krt, String nazwa_filmu) {
+    final JPanel panel = new JPanel();
+    panel.add(new JLabel(nazwa_filmu));
+    JOptionPane.showMessageDialog(frame, panel, "Znalezione filmy:", JOptionPane.PLAIN_MESSAGE);
+}
+
+
+function Pytanie zapytaj(JFrame frame, KieRuntime krt, String trescPytania, ArrayList odpowiedzi) {
+
+    class Listener implements ItemListener {
+        private Pytanie odpowiedz;
+        private String chosen;
+        public Listener(Pytanie odp, String wybrana) {
+            this.odpowiedz = odp;
+            this.chosen = wybrana;
+        }
+
+        @Override
+        public void itemStateChanged(ItemEvent event) {
+            if (event.getStateChange() == ItemEvent.SELECTED) {
+                odpowiedz.setOdpowiedz(chosen);
+            }
+        }
+    }
+    
+    Pytanie odpowiedz = new Pytanie(trescPytania, (String) odpowiedzi.get(0));
+
+    final JPanel panel = new JPanel(new GridLayout(0, 1));
+    panel.add(new JLabel(trescPytania));
+
+    ArrayList < JRadioButton > listaButtonow = new ArrayList < > ();
+
+    for (int i = 0; i < odpowiedzi.size(); i++) {
+        String text = (String) odpowiedzi.get(i);
+        JRadioButton nowy = new JRadioButton(text);
+        Listener newListener = new Listener(odpowiedz, text);
+        nowy.addItemListener(newListener);
+        listaButtonow.add(nowy);
+    }
+
+    listaButtonow.get(0).setSelected(true);
+    odpowiedz.setOdpowiedz((String) odpowiedzi.get(0));
+
+    ButtonGroup group = new ButtonGroup();
+    for (int i = 0; i < listaButtonow.size(); i++) {
+        group.add(listaButtonow.get(i));
+        panel.add(listaButtonow.get(i));
+    }
+    
+    Object[] options = {
+        "Proceed"
+    };
+    
+    if (JOptionPane.showConfirmDialog(frame, panel, "Pytanie:", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE) < 0) {
+        odpowiedz.setOdpowiedz("Zakoñcz program");
+    }
+
+    return odpowiedz;
+}
